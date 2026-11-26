@@ -47,65 +47,53 @@ public class Main {
         return answ;
     }
     
-    public static void vniz(double[][] a, int x, int y, int dliny, int countEl){
-        int t = dliny;
-        while (t > 0){
-            if (x >= 0 && x < a[0].length && y >= 0 && y < a.length){
-                out.printf("%.3f ", a[y][x]);
-                countEl--;
-            }
-            y++;
-            t--;
-        }
-        dliny++;
-    }
-    
-    public static void vverh(double[][] a, int x, int y, int dliny, int countEl){
-        int t = dliny;
-        while (t > 0){
-            if (x >= 0 && x < a[0].length && y >= 0 && y < a.length){
-                out.printf("%.3f ", a[y][x]);
-                countEl--;
-            }
-            y--;
-            t--;
-        }
-        dliny++;
-    }
-    
-    public static void vlevo(double[][] a, int x, int y, int dlinx, int countEl){
-        int t = dlinx;
-        while (t > 0){
-            if (x >= 0 && x < a[0].length && y >= 0 && y < a.length){
-                out.printf("%.3f ", a[y][x]);
-                countEl--;
-            }
-            x--;
-            t--;
-        }
-        dlinx++;
-    }
-    
-    public static void vpravo(double[][] a, int x, int y, int dlinx, int countEl){
-        int t = dlinx;
-        while (t > 0){
-            if (x >= 0 && x < a[0].length && y >= 0 && y < a.length){
-                out.printf("%.3f ", a[y][x]);
-                countEl--;
-            }
-            x++;
-            t--;
-        }
-        dlinx++;
-    }
     public static void circle(double[][] a){
         int x = a[0].length / 2, y = a.length / 2, dlinx = 1, dliny = 1, countEl = a.length * a[0].length;
         
         while (countEl > 0){
-            vniz(a, x, y, dliny, countEl);
-            vpravo(a, x, y, dlinx, countEl);
-            vverh(a, x, y, dliny, countEl);
-            vlevo(a, x, y, dlinx, countEl);
+            int t = dliny;
+            while (t > 0){
+                if (x >= 0 && x < a[0].length && y >= 0 && y < a.length){
+                    out.printf("%.3f ", a[y][x]);
+                    countEl--;
+                }
+                y++;
+                t--;
+            }
+            dliny++;
+            
+            t = dlinx;
+            while (t > 0){
+                if (x >= 0 && x < a[0].length && y >= 0 && y < a.length){
+                    out.printf("%.3f ", a[y][x]);
+                    countEl--;
+                }
+                x++;
+                t--;
+            }
+            dlinx++;
+            
+            t = dliny;
+            while (t > 0){
+                if (x >= 0 && x < a[0].length && y >= 0 && y < a.length){
+                    out.printf("%.3f ", a[y][x]);
+                    countEl--;
+                }
+                y--;
+                t--;
+            }
+            dliny++;
+            
+            t = dlinx;
+            while (t > 0){
+                if (x >= 0 && x < a[0].length && y >= 0 && y < a.length){
+                    out.printf("%.3f ", a[y][x]);
+                    countEl--;
+                }
+                x--;
+                t--;
+            }
+            dlinx++;
         }
     }
         
@@ -134,7 +122,12 @@ public class Main {
         
         for(int i = 1; i < m; i++){
             for (int j = 0; j < m - i; j++){
-                if (vspom[j].compareTo(vspom[j + 1]) > 0) swap(a, j);
+                if (vspom[j].compareTo(vspom[j + 1]) > 0){
+                    swap(a, j);
+                    Pair t = vspom[j];
+                    vspom[j] = vspom[j + 1];
+                    vspom[j + 1] = t;
+                }
             }
         }
         
@@ -143,7 +136,7 @@ public class Main {
         for (int i = 0; i < n; i++){
             for (int j = 0; j < m; j++){
                 int counta = count(a, a[i][j]);
-                if (maxcount < counta){
+                if (maxcount < counta || (maxcount == counta && a[i][j] < maxCountT)){
                     maxcount = counta;
                     maxCountT = a[i][j];
                 }
